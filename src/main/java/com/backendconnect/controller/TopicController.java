@@ -56,7 +56,7 @@ public class TopicController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getTopic(@PathVariable long id) {
-        Optional<Topic> topic = topicRepository.findById(id);
+        Optional<Topic> topic = topicRepository.getRefenceById(id);
         if (topic.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
@@ -65,12 +65,23 @@ public class TopicController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateTopic(@PathVariable long id, @RequestBody TopicRequest topicRequest) {
-        Optional<Topic> topic = topicRepository.findById(id);
-        if (topic.isEmpty()) {
-            return ResponseEntity.notFound().build();
+        Optional<Topic> topic = topicRepository.getRefenceById(id);
+        if (topic.isPresent()) {
+            topic.get().update(topicRequest);
+            topicRepository.save(topic.get());
+            return ResponseEntity.ok(new TopicInfo(topic.get()));
         }
-        topic.get().update(topicRequest);
-        topicRepository.save(topic.get());
-        return ResponseEntity.ok(new TopicInfo(topic.get()));
+        return ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteTopic(@PathVariable long id) {
+        Optional<Topic> topic = topicRepository.getRefenceById(id);
+        if (topic.isPresent()) {
+            topic.get().delete();
+            topicRepository.save(topic.get());
+            return ResponseEntity.ok(new TopicInfo(topic.get()));
+        }
+        return ResponseEntity.notFound().build();
     }
 }
