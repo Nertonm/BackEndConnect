@@ -1,4 +1,4 @@
-package com.backendconnect.infra;
+package com.backendconnect.infra.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
