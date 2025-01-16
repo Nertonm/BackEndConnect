@@ -53,12 +53,24 @@ public class TopicController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(topicInfos);
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<Object> getTopic(@PathVariable long id) {
         Optional<Topic> topic = topicRepository.findById(id);
         if (topic.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.ok(new TopicInfo(topic.get()));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateTopic(@PathVariable long id, @RequestBody TopicRequest topicRequest) {
+        Optional<Topic> topic = topicRepository.findById(id);
+        if (topic.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        topic.get().update(topicRequest);
+        topicRepository.save(topic.get());
         return ResponseEntity.ok(new TopicInfo(topic.get()));
     }
 }
