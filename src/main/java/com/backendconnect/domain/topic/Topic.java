@@ -51,4 +51,60 @@ public class Topic {
     public void delete() {
         this.status = false;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public long getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(long author) {
+        this.author = author;
+    }
+
+    public long getCourse() {
+        return course;
+    }
+
+    public void setCourse(long course) {
+        this.course = course;
+    }
 }
