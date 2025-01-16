@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 @Table(name = "topics")
 @Entity(name = "Topic")
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 
@@ -39,6 +38,10 @@ public class Topic {
         this.createdAt = LocalDateTime.now();
         this.status = true;
     }
+
+    public Topic() {
+    }
+
     public void update(TopicRequest topicRequest) {
         if (topicRequest.getTitle() != null) {
             this.title = topicRequest.getTitle();
