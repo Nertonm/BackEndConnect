@@ -1,13 +1,8 @@
 package com.backendconnect.domain.topic;
 
-import com.backendconnect.domain.course.Course;
-import com.backendconnect.domain.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -19,35 +14,41 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(of = "id")
 
 public class Topic {
+    @Setter
     @Getter
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
     private String title;
+
     @Column(nullable = false)
     private String message;
-    @Column(name = "created_at")
-    @NotNull
+
+    @Column(name = "created_at") @NotNull
     private LocalDateTime createdAt;
-    private String status;
-
-    @ManyToOne
-    @JoinColumn(name = "author_id", nullable = false)
-    private User author;
-
-    @ManyToOne
-    @JoinColumn(name = "course_id", nullable = false)
-    private Course course;
+    private boolean status;
+    private long author;
+    private long course;
 
     public Topic(TopicRequest topicRequest) {
-
         this.title = topicRequest.getTitle();
         this.message = topicRequest.getMessage();
+        this.author = topicRequest.getAuthorId();
+        this.course = topicRequest.getCourseId();
         this.createdAt = LocalDateTime.now();
-        this.status = "OPEN";
+        this.status = true;
     }
-    public long getId(){
-        return id;
+    public void update(TopicRequest topicRequest) {
+        if (topicRequest.getTitle() != null) {
+            this.title = topicRequest.getTitle();
+        }
+        if (topicRequest.getMessage() != null){
+            this.message = topicRequest.getMessage();
+        }
+    }
+
+    public void delete() {
+        this.status = false;
     }
 }

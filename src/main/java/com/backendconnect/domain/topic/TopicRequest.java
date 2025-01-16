@@ -1,8 +1,7 @@
 package com.backendconnect.domain.topic;
 
 import jakarta.validation.constraints.NotBlank;
-
-import java.time.LocalDateTime;
+import jakarta.validation.constraints.NotNull;
 
 public class TopicRequest {
     @NotBlank
@@ -11,16 +10,10 @@ public class TopicRequest {
     @NotBlank
     private String message;
 
-    @NotBlank
-    private LocalDateTime createdAt;
-
-    @NotBlank
-    private String status;
-
-    @NotBlank
+    @NotNull
     private Long authorId;
 
-    @NotBlank
+    @NotNull
     private Long courseId;
 
     public String getTitle() {
@@ -37,22 +30,6 @@ public class TopicRequest {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public Long getAuthorId() {
