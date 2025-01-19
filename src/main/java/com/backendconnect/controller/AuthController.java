@@ -26,14 +26,10 @@ public class AuthController {
     private TokenService tokenService;
 
     @PostMapping
-    public ResponseEntity<Object> login(@RequestBody @Valid AuthData data) {
-        var token = new UsernamePasswordAuthenticationToken(data.login(), data.password());
-        var authentication = authenticationManager.authenticate(token);
+    public ResponseEntity login(@RequestBody @Valid AuthData data) {
+        var authenticationToken = new UsernamePasswordAuthenticationToken(data.login(), data.password());
+        var authentication = authenticationManager.authenticate(authenticationToken);
         var tokenJWT = tokenService.generateToken((User) authentication.getPrincipal());
         return ResponseEntity.ok(new DataTokenJWT(tokenJWT));
     }
-
-//    public AuthenticationManager getAuthenticationManager() {
-//        return authenticationManager;
-//    }
 }
