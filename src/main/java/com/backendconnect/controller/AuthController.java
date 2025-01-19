@@ -1,7 +1,6 @@
 package com.backendconnect.controller;
 
 import com.backendconnect.domain.user.User;
-import com.backendconnect.infra.security.DataTokenJWT;
 import com.backendconnect.infra.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +29,6 @@ public class AuthController {
         var authenticationToken = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         var authentication = authenticationManager.authenticate(authenticationToken);
         var tokenJWT = tokenService.generateToken((User) authentication.getPrincipal());
-        return ResponseEntity.ok(new DataTokenJWT(tokenJWT));
+        return ResponseEntity.ok(tokenJWT);
     }
 }
