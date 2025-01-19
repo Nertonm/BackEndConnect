@@ -30,13 +30,13 @@ public class User implements UserDetails {
     }
 
     @Override
-    public String getUsername() {
-        return login;
+    public String getPassword() {
+        return password;
     }
 
     @Override
-    public String getPassword() {
-        return password;
+    public String getUsername() {
+        return login;
     }
 
     @Override
@@ -46,6 +46,11 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
         return true;
     }
 

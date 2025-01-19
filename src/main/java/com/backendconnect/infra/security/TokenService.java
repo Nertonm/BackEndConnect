@@ -34,17 +34,16 @@ public class TokenService {
             throw new RuntimeException("Error creating token", exception);
         }
     }
+
     public String getSubject(String tokenJWT) {
         try {
             var algoritmo = Algorithm.HMAC256(secret);
             return JWT.require(algoritmo)
-                    .withIssuer("API BackEndConnect")
+                    .withIssuer("API Voll.med")
                     .build()
                     .verify(tokenJWT)
                     .getSubject();
         } catch (JWTVerificationException exception) {
-            Logger log = null;
-            log.error("Erro ao verificar token JWT: {}", exception.getMessage());
             throw new RuntimeException("Token JWT inválido ou expirado!");
         }
     }
